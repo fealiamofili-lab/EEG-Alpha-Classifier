@@ -1,32 +1,76 @@
 # EEG Classification of Alpha-Band Oscillations
 
-**Result:** 100.00% Classification Accuracy achieved via a Logistic Regression Pipeline.
+**Result:** Built a machine learning model that classifies eyes-open vs eyes-closed brain states using EEG alpha-band (≈10Hz) activity.
 
 ---
 
-## Neurophysiological Context: The Alpha Blockade
+## Overview
 
-This project focuses on the automated detection of the **Alpha Blockade** phenomenon (the Berger Effect). When a subject’s eyes are closed, the visual cortex within the Occipital Lobe generates synchronized, high-amplitude oscillations at approximately 10Hz, known as the Alpha rhythm. This model identifies that distinct neural signature to differentiate between cognitive states with high precision.
+This project builds a full machine learning pipeline using 64-channel EEG data to classify cognitive state (eyes open vs eyes closed). It uses frequency-domain analysis to detect alpha-band neural oscillations associated with the Berger effect.
 
-## Analysis and Evidence
+The model demonstrates how brain-state differences can be captured using simple and interpretable machine learning methods.
 
-### 1. Frequency Domain Analysis (The Alpha "Skyscraper")
-Power Spectral Density (PSD) analysis reveals a prominent power spike at the 10Hz frequency during the "Eyes-Closed" state. This stands in stark contrast to the attenuated baseline observed during the "Eyes-Open" state, providing a clear biological feature for the classifier.
+---
+
+## Key Result
+- Classification Accuracy: 100% (dataset-specific EEG recording)
+- Model: Logistic Regression (scikit-learn)
+- Signal Processing: MNE-Python
+
+> Note: Results are specific to the dataset used and may not generalize across all EEG recordings.
+
+---
+
+## Methodology
+
+### EEG Preprocessing
+- Loaded 64-channel EEG dataset
+- Applied bandpass filtering to isolate neural frequency bands
+- Segmented data into eyes-open vs eyes-closed conditions
+
+---
+
+### Feature Extraction
+- Computed Power Spectral Density (PSD)
+- Extracted alpha-band (~10Hz) activity
+- Converted EEG signals into frequency-domain feature vectors
+
+---
+
+### Classification Model
+- StandardScaler for normalization
+- Logistic Regression classifier (scikit-learn)
+- Trained on EEG spectral features
+
+---
+
+## Key Findings
+
+### Alpha-band Separation (10Hz Activity)
+A strong power increase at ~10Hz is observed during the eyes-closed condition, consistent with established neuroscience findings.
 
 ![Alpha Skyscraper](alpha_skyscraper.png)
 
-### 2. Spatial Interpretability (AI Feature Importance)
-To validate the model's physiological accuracy, the classifier's coefficients were projected back onto a 2D topographical scalp map. The concentrated importance over the Occipital Lobe confirms that the algorithm is correctly prioritizing biological signals from the visual cortex rather than environmental noise or ocular artifacts.
+---
+
+### Spatial Interpretability (Occipital Cortex Activity)
+Model feature weights mapped onto scalp regions show strongest influence in the occipital cortex, aligning with known visual processing areas in the brain.
 
 ![AI Focus Map](ai_feature_map.png)
 
-## Technical Architecture and Implementation
+---
 
-* **Primary Library:** `MNE-Python` (Electrophysiological Signal Processing)
-* **Classifier:** `Scikit-Learn` (StandardScaler + Logistic Regression)
-* **Dataset:** 64-channel high-density EEG recording
+## Tech Stack
+- Python
+- MNE-Python (EEG signal processing)
+- Scikit-learn (Machine Learning)
+- NumPy / Pandas
+- Matplotlib
 
-## Execution Instructions
+---
 
-1.  **Install dependencies:** `pip install -r requirements.txt`
-2.  **Run Analysis:** Execute the `EEG-Alpha-Classifier.ipynb` notebook via Anaconda or Jupyter.
+## How to Run
+
+Install dependencies:
+```bash
+pip install -r requirements.txt
