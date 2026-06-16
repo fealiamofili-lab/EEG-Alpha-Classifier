@@ -1,32 +1,55 @@
 # EEG Classification of Alpha-Band Oscillations
 
-**Result:** 100.00% Classification Accuracy achieved via a Logistic Regression Pipeline.
+## Overview
+This project implements a machine learning pipeline to classify EEG brain states (eyes-open vs eyes-closed) using alpha-band (≈8–12 Hz) neural activity. The workflow combines signal processing and interpretable machine learning to analyze frequency-domain EEG patterns.
 
 ---
 
-## Neurophysiological Context: The Alpha Blockade
+## Key Result
+- Achieved strong classification performance using a Logistic Regression model on EEG-derived features
 
-This project focuses on the automated detection of the **Alpha Blockade** phenomenon (the Berger Effect). When a subject’s eyes are closed, the visual cortex within the Occipital Lobe generates synchronized, high-amplitude oscillations at approximately 10Hz, known as the Alpha rhythm. This model identifies that distinct neural signature to differentiate between cognitive states with high precision.
+---
 
-## Analysis and Evidence
+## Signal Processing
 
-### 1. Frequency Domain Analysis (The Alpha "Skyscraper")
-Power Spectral Density (PSD) analysis reveals a prominent power spike at the 10Hz frequency during the "Eyes-Closed" state. This stands in stark contrast to the attenuated baseline observed during the "Eyes-Open" state, providing a clear biological feature for the classifier.
+### Alpha-Band Feature Extraction
+- Extracted frequency-domain features from 64-channel EEG recordings using MNE-Python  
+- Applied Power Spectral Density (PSD) analysis to identify alpha-band (8–12 Hz) activity  
+- Observed stronger alpha power during eyes-closed conditions compared to eyes-open  
 
-![Alpha Skyscraper](alpha_skyscraper.png)
+![Alpha Power Spectral Density](alpha_skyscraper.png)
 
-### 2. Spatial Interpretability (AI Feature Importance)
-To validate the model's physiological accuracy, the classifier's coefficients were projected back onto a 2D topographical scalp map. The concentrated importance over the Occipital Lobe confirms that the algorithm is correctly prioritizing biological signals from the visual cortex rather than environmental noise or ocular artifacts.
+---
 
-![AI Focus Map](ai_feature_map.png)
+## Machine Learning Pipeline
+- StandardScaler normalization of EEG feature vectors  
+- Logistic Regression classifier (Scikit-Learn)  
+- Feature engineering based on frequency-domain EEG signals  
 
-## Technical Architecture and Implementation
+---
 
-* **Primary Library:** `MNE-Python` (Electrophysiological Signal Processing)
-* **Classifier:** `Scikit-Learn` (StandardScaler + Logistic Regression)
-* **Dataset:** 64-channel high-density EEG recording
+## Interpretability
 
-## Execution Instructions
+- Mapped model coefficients back to EEG scalp regions  
+- Identified strongest predictive signals in occipital region  
+- Results align with known visual cortex activity patterns  
 
-1.  **Install dependencies:** `pip install -r requirements.txt`
-2.  **Run Analysis:** Execute the `EEG-Alpha-Classifier.ipynb` notebook via Anaconda or Jupyter.
+![EEG Feature Importance Map](ai_feature_map.png)
+
+---
+
+## Tech Stack
+- Python  
+- MNE-Python  
+- Scikit-Learn  
+- NumPy  
+- Pandas  
+- Jupyter Notebook  
+
+---
+
+## How to Run
+
+```bash
+pip install -r requirements.txt
+jupyter notebook EEG-Alpha-Classifier.ipynb
